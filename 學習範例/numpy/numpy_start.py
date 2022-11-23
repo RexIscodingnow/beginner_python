@@ -33,6 +33,15 @@ ar4 = numpy.ones(3)
 ar5 = numpy.arange(5)
 # print(ar5)
 
+ar6 = numpy.arange(1, 5)
+# print(ar6)
+
+ar7 = numpy.arange(1, 5, 2)
+# print(ar7)
+
+num_sequence = numpy.linspace(0, 20)
+print(num_sequence)
+
 '''
     二維陣列
 '''
@@ -81,7 +90,7 @@ nd3_ar3 = numpy.ones([2, 1, 2])
     一樣的做法
 '''
 nd4_ar1 = numpy.ones([2, 1, 1, 2])
-print(nd4_ar1)
+# print(nd4_ar1)
 
 
 '''

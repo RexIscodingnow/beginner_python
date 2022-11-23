@@ -1,26 +1,31 @@
 import numpy as array
 
-# 逐元運算 (elementwise)
-# data1 = array.array([3, 2, 10])
-# data2 = array.array([1, 3, 6])
+
+'''
+    逐元運算 (elementwise)
+
+    先決條件: 陣列長度、形狀，要一樣
+'''
+data1 = array.array([3, 2, 10])
+data2 = array.array([1, 3, 6])
 
 # result = data1 + data2
-# print("加 ", result)
+# print("加 => ", result)
 
 # result = data1 - data2
-# print("減 ", result)
+# print("減 => ", result)
 
 # result = data1 * data2
-# print("乘 ", result)
+# print("乘 => ", result)
 
 # result = data1 / data2
-# print("除 ", result)
+# print("除 => ", result)
 
 # result = data1 > data2
-# print("大於 ", result)
+# print("大於 => ", result)
 
 # result = data1 == data2
-# print("是否相等 ", result)
+# print("是否相等 => ", result)
 
 # 矩陣運算 (matrix)
 '''
@@ -32,14 +37,14 @@ import numpy as array
         |        |     | -2  4  1 |  (橫排(每行) x 直排(每行)) ...... 還回去了，還是...睡著了沒聽到...
 '''
 # 1 x 2
-# data1 = array.array([
-#     [1, 3]
-# ])
+data1 = array.array([
+    [1, 3]
+])
 # # 2 x 3
-# data2 = array.array([
-#     [2, -1, 3],
-#     [-2, 4, 1]
-# ])
+data2 = array.array([
+    [2, -1, 3],
+    [-2, 4, 1]
+])
 # 矩陣內積
 # result = data1.dot(data2)
 # result = data1 @ data2  # python 3.5 以上
@@ -51,8 +56,8 @@ import numpy as array
           [(3 x 2)  (3 x -1)  (3 x 3)  (3 x -2)  (3 x 4)  (3 x 1)]
 '''
 # result = array.outer(data1, data2)
-# print("外積: ", result)
-
+# print("外積: ")
+# print(result)
 
 # 統計運算 (statistics)
 data = array.array([
@@ -64,14 +69,32 @@ data = array.array([
 # result = data.sum()
 # print("總和: ", result)
 
-# 針對欄做總和 column  (針對第一個維度做總和)
+'''
+axis = 0: 針對欄做總和 column  (針對第一個維度做總和)
+    例子: 像是 2 個一維陣列 做相加
+            data = array.array([
+                [1, 2, 3],
+                [4, 5, 6]
+            ])
+            data1 = array.array([1, 2, 3])
+            data2 = array.array([4, 5, 6])
+            
+            data.sum(axis=0)  ==  data1 + data2
+
+
+axis = 1: 針對列做總和 row  (針對第二個維度做總和)
+    例子: 2 維陣列內，所有 1 維陣列 "做相加"
+            data = array.array([
+                [1, 2, 3],  # 這一列相加  1 + 2 + 3
+                [4, 5, 6]   # 同理       4 + 5 + 6
+            ])
+            data.sum(axis=1)    # 結果 => [6, 15]
+'''
 # result = data.sum(axis=0)  # [(2+(-5))  (1+3)  (7+8)]
 # print("欄的總和: ", result)
 
-# 針對列做總和 row  (針對第二個維度做總和)
-# result = data.sum(axis=1)  # [(2+1+7)  (-5+3+8)]
-# print("列的總和: ", result)
-
+result = data.sum(axis=1)  # [(2+1+7)  (-5+3+8)]
+print("列的總和: ", result)
 
 # 最大值
 # result = data.max()
@@ -81,9 +104,8 @@ data = array.array([
 # result = data.mean()
 # print("平均數: ", result)
 
-result = data.mean(axis=1)
-print("列的平均數: ", result)
-
+# result = data.mean(axis=1)
+# print("列的平均數: ", result)
 
 # 標準差
 # result = data.std()

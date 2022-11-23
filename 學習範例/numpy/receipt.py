@@ -5,11 +5,11 @@
 import numpy as np
 
 array = np.array([
-    '476', 
-    '852', 
-    '097', 
-    '042', 
-    '836'
+    '942', 
+    '570', 
+    '675', 
+    '574', 
+    '222'
 ])
 
 while True:
@@ -18,12 +18,13 @@ while True:
     if number in array:
         print("核對號碼!!\n", number)
 
+
     elif number == "00":
         print("結束~~")
         break
 
     elif not number:
-        print("未輸入 \n/")
+        print("未輸入 \n")
 
     elif number not in array:
         print("試試下一張!!\n")

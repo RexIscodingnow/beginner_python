@@ -36,7 +36,7 @@
 #     print(n1/n2)
 # divide(2,4)
 # divide(n2 = 2,n1 = 4)
-#  無限/不定 參數資料
+#  無限/不定 參數資料 => 資料型態: Tuple
 # def avg(*ns):
 #     print(ns)
 #     sum = 0
