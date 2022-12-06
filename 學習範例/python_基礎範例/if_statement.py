@@ -19,7 +19,7 @@ try:
     elif score < 90 and score >= 80:
         price = 500
 
-    elif score < 80 and score > 60:
+    elif score < 80 and score >= 60:
         price = 300
 
     else:

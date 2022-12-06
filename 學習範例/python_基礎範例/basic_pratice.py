@@ -4,33 +4,44 @@
 
 
 
-# 羅馬數字轉換器
 
-def ramanToInt(string):
-    roman_num = {
-        "I": 1,
-        "V": 5,
-        "X": 10,
-        "L": 50,
-        "C": 100,
-        "D": 500,
-        "M": 1000
-    }
 
-    num = 0
-    temp = 0
 
-    for i in string:
-        if roman_num[i] > temp:
-            num += roman_num[i] - (temp * 2)
-        else:
-            num += roman_num[i]
-        
-        temp = roman_num[i]
 
-    return num
+# def longestCommonPrefix(strs):
+#     """
+#     :type strs: List[str]
+#     :rtype: str
+#     """
+#     if not strs: return ""
 
-ans = ramanToInt(input("num => "))
-print(ans)
+#     result = ""
+#     temp = ""
+#     compare_temp = ""   # 比較 暫存值
+#     result = strs[0]    # 取第一個值
+#     for i in range(len(strs)):
+#         temp = strs[i]
+#         min_len = min(result, temp)
+#         for j in range(len(min_len)):
+#             if temp[j] == result[j]:
+#                 compare_temp += temp[j]
+#             elif temp[0] != result[0]:
+#                 return ""
+#             else:
+#                 break
 
+#         result = compare_temp
+#         compare_temp = ""
     
+#     return result
+
+
+# strs = ["flower","flow","flight"]    # Target Answer is 相同字元 => fl
+# result_1 = longestCommonPrefix(strs)
+
+# print(result_1)
+
+# strs = ["cir","car"]
+# result_2 = longestCommonPrefix(strs)
+# print(result_2)
+
