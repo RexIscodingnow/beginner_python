@@ -1,3 +1,8 @@
+'''
+    Numpy 陣列運算
+'''
+
+
 import numpy as array
 
 
