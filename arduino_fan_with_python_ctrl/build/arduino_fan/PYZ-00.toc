@@ -650,9 +650,6 @@
   ('subprocess',
    'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python310\\lib\\subprocess.py',
    'PYMODULE'),
-  ('os',
-   'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python310\\lib\\os.py',
-   'PYMODULE'),
   ('multiprocessing.spawn',
    'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python310\\lib\\multiprocessing\\spawn.py',
    'PYMODULE'),
@@ -691,4 +688,7 @@
    'PYMODULE'),
   ('serial.serialutil',
    'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\serial\\serialutil.py',
+   'PYMODULE'),
+  ('os',
+   'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python310\\lib\\os.py',
    'PYMODULE')])
