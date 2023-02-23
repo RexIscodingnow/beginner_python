@@ -4,6 +4,7 @@
     風扇控制
 '''
 
+import os
 import serial
 import msvcrt
 from time import sleep
@@ -74,22 +75,29 @@ while True:
 
         try:
             running = True
+            restart_times = 0
             while running:
                 msg = "開啟，按 [O]\n關閉，按 [F]\n" + \
                     "加大風量，按 [W]\n減少風量，按 [S]\n" + \
                     "往右邊擺頭，按 [D]\n往左邊擺頭，按 [A]\n" + \
-                    "結束執行程式，按 [C] 或 [Ctrl + C]\n" + \
+                    "結束執行程式，按 [E] 或 [Ctrl + C]\n" + \
+                    "清理視窗 [cls], [CLS]\n" + \
                     ">>> "
                 choice = input(msg)
-                fan_control(choice)
+                if choice:
+                    fan_control(choice)
 
                 # 結束執行
-                if 'C' in choice or 'c' in choice:
+                if 'E' in choice or 'e' in choice:
                     ser_data.write(b'0\n')
                     ser_data.close()    # 關閉該連接埠連接
                     print("結束操作!\n\n按任意鍵結束")
                     ord(msvcrt.getch())
                     running = False
+                
+                # 清理視窗
+                if 'cls' in choice or 'CLS' in choice:
+                    os.system("cls")
             
             if running == False:
                 break
