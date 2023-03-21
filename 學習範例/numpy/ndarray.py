@@ -50,8 +50,8 @@ import numpy as np
 #     for j in range(data.shape[1]):
 #         data[i][j] = num
 #         num += 1
-data = np.arange(1, 19).reshape(3, 6)
-print(data)
+# data = np.arange(1, 19).reshape(3, 6)
+# print(data)
 
 
 

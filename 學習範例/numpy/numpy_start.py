@@ -37,7 +37,7 @@ ar6 = numpy.arange(1, 5)
 # print(ar6)
 
 ar7 = numpy.arange(1, 8, 2)
-print(ar7)
+# print(ar7)
 
 num_sequence = numpy.linspace(0, 20)
 # print(num_sequence)
