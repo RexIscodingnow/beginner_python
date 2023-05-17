@@ -66,7 +66,7 @@ address: 0xff33s
 '''
 
 import numpy as np
-
+import random
 
 
 class ArrayOperation():
@@ -191,6 +191,52 @@ class Row_Column(ArrayOperation):
                         for k in range(self.shape[2]):
                             self.array[i][j][k] = data[i][j][k]
         return self.array
+    
+    def rand(self, digits=5, positive=False):
+        '''
+        隨機數值 (不想自訂，讓其自產)
+
+        origin range: -n <= x <= n  (x: random number)
+
+        : param digits: 範圍總位數  default -> 5 位
+        : param positive: 限制在正數範圍  --> 0 <= x <= n
+        '''
+        if digits < 1:
+            raise Exception("It must be over 1 digits")
+
+        min_range = self.dtype(-9.2345 * (10 ** digits) / 10)
+        max_range = abs(min_range)
+        
+        if positive:
+            min_range = 0
+        # print(min_range)
+        # print(max_range)
+
+        if self.dimensional == 1:
+            for i in range(self.shape[0]):
+                if self.dtype == int:
+                    self.array[i] = random.randint(min_range, max_range)
+                elif self.dtype == float:
+                    self.array[i] = random.uniform(min_range, max_range)
+    
+        elif self.dimensional == 2:
+            for i in range(self.shape[0]):
+                for j in range(self.shape[1]):
+                    if self.dtype == int:
+                        self.array[i][j] = random.randint(min_range, max_range)
+                    elif self.dtype == float:
+                        self.array[i][j] = random.uniform(min_range, max_range)
+
+        elif self.dimensional == 3:
+            for i in range(self.shape[0]):
+                for j in range(self.shape[1]):
+                    for k in range(self.shape[2]):
+                        if self.dtype == int:
+                            self.array[i][j][k] = random.randint(min_range, max_range)
+                        elif self.dtype == float:
+                            self.array[i][j][k] = random.uniform(min_range, max_range)
+
+        return self.array
 
     def row_major(self):
         '''
@@ -207,7 +253,7 @@ class Row_Column(ArrayOperation):
 
     def arrange(self, start=0):
         '''
-        1D ~ 3D array 遞增給值
+        1D ~ 3D array 遞增給值 (安排)
 
         PS: 希望不太常用到 3D ...
         '''
@@ -295,11 +341,11 @@ class Row_Column(ArrayOperation):
 
         return
 
-    def selection_sort(self):
+    def bubble_sort(self):
         '''
-        1D array 選擇排序法
+        1D array 泡沫排序法
 
-        O(n ^ 2)
+        Big-O(n ^ 2)
         '''
         shape = len(self.array.shape)
         if shape == 1:
@@ -310,11 +356,32 @@ class Row_Column(ArrayOperation):
                         self.array[j] = self.array[i]
                         self.array[i] = temp
 
-            print("selection sort")
+            print("bubble sort")
             print(self.array)
 
+    def selection_sort(self):
+        '''
+        1D array 選擇排序法
+
+        Big-O(n ^ 2)
+        '''
+        shape = len(self.array.shape)
+
+        if shape == 1:
+            for i in range(self.array.shape[0]):
+                min_index = i
+                for j in range(i+1, self.array.shape[0]):
+                    if self.array[j] < self.array[min_index]:
+                        min_index = j
+
+                if min_index != i:
+                    # swap
+                    temp = self.array[i]
+                    self.array[i] = self.array[min_index]
+                    self.array[min_index] = temp
+
+        return self.array
 
 
 
 
-    
