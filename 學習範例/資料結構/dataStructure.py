@@ -11,7 +11,6 @@ Python 資料結構: 執行區
     6. Graph (圖形結構)
     7. Sorting (排序)     => unit_7_sort.py     (後續: algorithm 學習)
     8. Search (搜尋)      => unit_8_search.py   (後續: algorithm 學習)
-    9. experiment (實驗)  => experiment.py
 '''
 
 import numpy as np
