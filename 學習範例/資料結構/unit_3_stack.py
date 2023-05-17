@@ -156,6 +156,88 @@ class Stack_Example:
 
         return legal
 
+    def arithmetic(self, famula: str):
+        '''
+        四則運算
+        '''
+        left = '('
+        right = ')'
+        priority_level = {
+            '*': 2,
+            '/': 2,
+            '+': 1,
+            '-': 1
+        }
+
+        i = 0
+        operators = []
+        nums = []
+        total = 0
+
+        famula = famula.split()
+        while i < len(famula):
+            # 左括號 與 運算子
+            if famula[i] in priority_level.keys():
+                # 優先計算 "乘除" 運算子
+                while operators and operators[-1] in priority_level.keys() and priority_level[operators[-1]] >= priority_level[famula[i]]:
+                    operator = operators.pop()
+                    num2 = nums.pop()
+                    num1 = nums.pop()
+
+                    if operator == '*': total = num1 * num2
+                    elif operator == '/': total = num1 / num2
+                    elif operator == '+': total = num1 + num2
+                    elif operator == '-': total = num1 - num2
+
+                    nums.append(total)
+                # 非優先運算子，存入待計算
+                operators.append(famula[i])
+
+            elif famula[i] == left:
+                operators.append(famula[i])
+            
+            elif famula[i] == right:
+                # 從右刮號 處理到 左括號彈出    
+                while operators[-1] != left:
+                    operator = operators.pop()
+                    num2 = nums.pop()
+                    num1 = nums.pop()
+
+                    if operator == '*': total = num1 * num2
+                    elif operator == '/': total = num1 / num2
+                    elif operator == '+': total = num1 + num2
+                    elif operator == '-': total = num1 - num2
+
+                    nums.append(total)
+                
+                operators.pop()
+
+            else:
+                # 組好數值
+                nums.append(float(famula[i]))
+
+            i += 1
+        
+        # 尚未計算完畢之式子
+        while operators:
+            operator = operators.pop()
+            num2 = nums.pop()
+            num1 = nums.pop()
+
+            if operator == '*': total = num1 * num2
+            elif operator == '/': total = num1 / num2
+            elif operator == '+': total = num1 + num2
+            elif operator == '-': total = num1 - num2
+
+            nums.append(total)
+
+        # print(nums)
+        # print(operators)
+        # print("------------")
+        # print(nums[-1])
+
+        return nums.pop()
+
 
 class Recursion_Example():
     '''
@@ -165,7 +247,7 @@ class Recursion_Example():
         |      | <-- ......
         |      | <-- ......
         |      | <-- 第二次呼叫
-        |      | <-- 第一次呼叫
+        |      | <-- 第一次呼叫 (第一次呼叫點)
         --------
 
     1. call function =>  first -> second -> ....... -> last call
@@ -193,6 +275,12 @@ class Recursion_Example():
     def fibonacci_sequence(self, n: int, mode = "recursion"):
         '''
         費氏數列
+
+        : param n: 數列長度
+        : param mode: 模式
+                -- 1. 遞迴: recursion
+                -- 2. 疊代/重複式: iterative
+                -- 3. 迴圈: loop
 
         公式: F(n) = F(n - 1) + F(n - 2)
 
@@ -234,7 +322,79 @@ class Recursion_Example():
             else:
                 return self.fibonacci_sequence(n - 1) + self.fibonacci_sequence(n - 2)
 
-        elif mode == "plus":
-            # use while loop
-            pass
+        elif mode == "iterative":
+            fibonacci = np.zeros([n+1], int)
+            fibonacci[0] = 0
 
+            if n > 0:
+                fibonacci[1] = 1
+                # print("[i] = [i-1] + [i-2]")
+                for i in range(2, n+1):
+                    fibonacci[i] = fibonacci[i-1] + fibonacci[i-2]
+
+            print("fibbonacci sequence:")
+            print(fibonacci)
+            return fibonacci[n]
+
+        elif mode == "loop":
+            # 第一種
+            # init = 0   # 初始值
+            # accumulator = 1   # 疊加值
+
+            # print("accumulator + init")
+            # for _ in range(n):
+            #     temp = accumulator
+            #     print(f"{accumulator} + {init} = ", accumulator + init)
+            #     accumulator += init
+
+            #     init = temp
+
+            # return init
+
+            # 第二種
+            n1 = 0
+            n2 = 1
+
+            for _ in range(n):
+                '''
+                0+1 = 1
+                1-0 = 1
+                -----
+                1+1 = 2
+                2-1 = 1
+                -----
+                2+1 = 3
+                3-1 = 2
+                '''
+                n2 = n1 + n2
+                n1 = n2 - n1
+
+            return n1
+        
+    def binary_search(self, data, search, low: int, high: int):
+        '''
+        屬於 Tail Recursion
+
+        Tail Recursion: 所有的運算，在遞迴呼叫前完成
+
+        : param low: 搜尋範圍 (左)
+        : param high: 搜尋範圍 (右)
+        '''
+        if low > high:
+            return -1
+        
+        else:
+            mid = int((low + high) / 2)
+
+            if search < data[mid]:
+                return self.binary_search(
+                    data, search,
+                    low, mid-1
+                )
+            elif search > data[mid]:
+                return self.binary_search(
+                    data, search,
+                    mid+1, high
+                )
+            else:
+                return mid
