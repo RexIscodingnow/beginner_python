@@ -2,6 +2,7 @@
 # 學習紀錄
 
 1. 資料結構
+
 進度:
   1. Array
   2. LinkedList
@@ -19,6 +20,7 @@
   8. Search
 
 2. 演算法
+
 目前進度:
    1. Divide and conquer (目前進度)
    2. Dynamic Programming
