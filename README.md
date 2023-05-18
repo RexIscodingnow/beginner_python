@@ -12,10 +12,7 @@
   6. Graph
   7. Sort
         已實作過:
-            Bubble Sort
-            Selection Sort
-            Quick Sort
-            Merge Sort
+            Bubble Sort, Selection Sort, Quick Sort, Merge Sort
 
   8. Search
 
