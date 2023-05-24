@@ -67,7 +67,7 @@ class ListNode:
     '''
     鏈結串列
     '''
-    def __init__(self, data, link=None):
+    def __init__(self, data=0, link=None):
         '''
         : param data: 資料欄位
         : param link: 鏈結欄位 (連向另一個節點位置)
@@ -121,7 +121,7 @@ class Linked_List():
 
     def addBack(self, data):
         '''
-        添加在尾段
+        添加在尾段 (最後一個節點的後方 (接在屁股後面))
         '''
         new_node = ListNode(data)   # 建立新節點
 
@@ -138,18 +138,106 @@ class Linked_List():
 
             current.link = new_node
 
-    def delete(self, value):
+    def insert(self, data, node):
+        '''
+        插入節點
+
+        : param data: 要插入的節點資料
+        : param node: 插入節點的位置 (節點資料)
+                        -- 在插入節點的位置，往前一個，是實際插入位置
+
+        : type data: ListNode.data
+        : type node: ListNode.data
+                        -- 寫入節點資料的型別
+        '''
+        if self.listNode == None:
+            return
+
+        current = self.listNode
+
+        # 在頭節點位置
+        if node == current.data:
+            self.addFront(data)
+            return
+
+        # 非頭節點位置
+        while current.link:
+            nextNode = current.link
+
+            if node == nextNode.data:
+                newNode = ListNode(data, nextNode)
+                current.link = newNode
+                return
+
+            current = current.link
+
+    def delete(self, data):
         '''
         刪除節點
 
-        : param data: 添加的節點資料
+        : param data: 刪除的目標節點的資料
         '''
+        if self.listNode == None:
+            return
+
+        current = self.listNode
+
+        # 刪除位置: 在頭節點
+        if data == current.data:
+            self.listNode = current.link
+            del current
+            return
+        
+        # 刪除位置: 從頭節點 (不包含) ~ 最後一個節點
+        while current.link:
+            nextNode = current.link   # 當前節點的下一個節點
+
+            if data == nextNode.data:
+                # 繞過要刪除的節點
+                # 跟要刪除的目標節點，下一個節點的位置連接
+                current.link = nextNode.link
+                del nextNode
+                return
+
+            current = current.link
+
+    def search(self, data):
+        '''
+        搜尋節點
+
+        : param data: 要搜尋的節點資料
+        : rtype: ListNode() | None
+        '''
+        if self.listNode == None:
+            return
+
+        current = self.listNode
+        
+        while current:
+            if data == current.data:
+                return current
+            
+            current = current.link
+        
+        return None
 
     def printNode(self):
         '''
         印出所有節點
         '''
+        if self.listNode == None:
+            return
 
+        current = self.listNode
+
+        while current:
+            print(current.data, end=' ')
+            if current.link:
+                print("->", end=' ')
+
+            current = current.link
+        
+        print()
 
     def listNode_Example(self):
         values = inputValues(5, int, "學生_1 分數 => ", "學生_2 分數 => ", "學生_3 分數 => ", "學生_4 分數 => ", "學生_5 分數 => ")
