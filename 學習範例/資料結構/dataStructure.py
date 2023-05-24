@@ -60,13 +60,17 @@ if __name__ == "__main__":
 
     # Linked List
     
-    # ls_node = Linked_List()
+    ls_node = Linked_List()
     # ls_node.listNode_Example()
 
-    # for i in range(6):
-    #     ls_node.insert(i+1)
+    for i in range(6):
+        ls_node.addBack(i+1)
 
-    # ls_node.printNode()
+    ls_node.printNode()
+    print("----------------------------")
+    ls_node.delete(6)
+    ls_node.insert(10, 4)
+    ls_node.printNode()
 
 
     # ------------------------------------------------------------------
@@ -78,6 +82,12 @@ if __name__ == "__main__":
     # stack_1.common_operation()
 
     recursion = Recursion_Example()
+
+    # n = int(input("費氏數列 n => "))
+
+    # result = recursion.fibonacci_sequence(n, "loop")
+    # print("費氏數列:", result)
+
     # n = int(input("factorial number => "))
     # result = recursion.factorial(n)
     # print(n, "!")
