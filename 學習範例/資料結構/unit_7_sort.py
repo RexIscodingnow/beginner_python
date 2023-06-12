@@ -4,6 +4,7 @@ Python Data Structure && algorithm: Sort (排序)
 '''
 
 import numpy as np
+import math
 
 
 class Sorting:
@@ -12,13 +13,18 @@ class Sorting:
 
     Here is for one dimensional array to sorting.
     '''
+    def __init__(self):
+        self.data = None
 
-    def swap(self, data_1, data_2):
-        temp = data_1
-        data_1 = data_2
-        data_2 = temp
+    def swap(self, a: int, b: int):
+        '''
+        : param a: the index of first element
+        : param b: the index of second element
+        '''
+        temp = self.data[a]
+        self.data[a] = self.data[b]
+        self.data[b] = temp
 
-        return data_1, data_2
 
     def bubble_sort(self, data):
         '''
@@ -28,10 +34,12 @@ class Sorting:
         Time Complexity: O(n ^ 2)
         Space Complexity: O(1)
         '''
+        self.data = data
+
         for i in range(len(data)):
             for j in range(len(data)):
                 if data[i] < data[j]:
-                    data[i], data[j] = self.swap(data[i], data[j])
+                    self.swap(i, j)
 
 
     def selection_sort(self, data):
@@ -43,18 +51,23 @@ class Sorting:
         Time Complexity: O(n ^ 2)
         Space Complexity: O(1)
         '''
+        self.data = data
+
         # 寫法 1
         for i in range(len(data)):
             for j in range(i+1, len(data)):
                 if data[i] > data[j]:
-                    data[i], data[j] = self.swap(data[i], data[j])
+                    self.swap(i, j)
     
         # 寫法 2
         # for i in range(len(data)):
         #     min_index = i   # 設置最小值 (索引值)
         #     for j in range(i, len(data)):
         #         if data[j] < data[min_index]:
-        #             data[i], data[min_index] = self.swap(data[i], data[min_index])
+        #             min_index = j
+
+        #     if min_index != i:
+        #         self.swap(i, min_index)
 
     def insert_sort(self, data):
         '''
@@ -63,7 +76,43 @@ class Sorting:
         Time Complexity: O(n ^ 2)
         Space Complexity: O(1)
         '''
-        pass
+        for i in range(1, len(data)):
+            insert_val = data[i]   # 待插入的數值
+            insert_index = i - 1       # 已排序部分的最後一個索引
+
+            # 比 key 大的數值往後移動
+            while insert_index >= 0 and insert_val < data[insert_index]:
+                data[insert_index+1] = data[insert_index]
+                # print(f"i: {i}", "data[j+1]:", data[j+1], " data[j]:", data[j])
+
+                insert_index -= 1
+
+            # 把小的數值放到最前面
+            data[insert_index+1] = insert_val
+            
+            print(data)
+
+    def radix_sort(self, data):
+        """
+        基數排序法
+
+        : param data: mutable iterable data
+        """
+        if len(data) < 2:
+            return
+        
+        buckets = [0] * 10
+        max_digit = len(max(data))   # 取最大數的最大的位數
+
+        """
+        1 ~ 10 ^ max_digit  遞增 10 倍
+        example: 最大為 3 位數 => 123
+                    1 ~ 10 ^ 3
+        
+        => 1 -> 10 -> 100
+        """
+        for digit in range(1, math.pow(10, max_digit), digit*10):   # digit 作為基數，從個位數開始排序
+            pass
 
 
     def quick_sort(self, data, left, right):
@@ -86,8 +135,10 @@ class Sorting:
         if left >= right:   # 左邊的指標超過右邊，意味著排好，中斷執行
             return
 
-        i = left
-        j = right
+        self.data = data
+
+        i = left    # 左邊區域
+        j = right   # 右邊區域
         pivot = data[left]  # 基準點
 
         while i != j:
@@ -99,7 +150,7 @@ class Sorting:
             
             # 在兩個指標尚未相遇之時，兩指標值交換
             if i < j:
-                data[i], data[j] = self.swap(data[i], data[j])
+                self.swap(i, j)
 
         # 基準點更換，值為當前位於左邊的指標值
         data[left] = data[i]
@@ -135,17 +186,20 @@ class Sorting:
         return self.merge(left, right)
 
     
-    def merge(self, left: list | np.ndarray, right: list | np.ndarray):
+    def merge(self, left: list | np.ndarray, right: list | np.ndarray, merged=None):
         '''
         合併
         '''
-        merged = None
+        out_param = False
         dtype = type(left)
 
-        if dtype == list:
-            merged = [None] * (len(left) + len(right))
-        elif dtype == np.ndarray:
-            merged = np.empty([len(left) + len(right)], type(left[0]))
+        if merged == None:
+            if dtype == list:
+                merged = [None] * (len(left) + len(right))
+            elif dtype == np.ndarray:
+                merged = np.empty([len(left) + len(right)], type(left[0]))
+
+            out_param = True
 
         i = 0
         j = 0
@@ -172,7 +226,8 @@ class Sorting:
                 j += 1
                 k += 1
         
-        return merged
+        if out_param:
+            return merged
 
 
     def slicing(self, data: list | np.ndarray, divide_size: int = 2, sort: bool = True):
@@ -187,6 +242,8 @@ class Sorting:
 
         : param sort: 啟用排序，預設開啟
         : param sort: bool
+
+        : rtype: list | np.ndarray
         '''
         if len(data) < 2:
             return data
@@ -195,7 +252,7 @@ class Sorting:
 
         bucket = None   # 剩下未放入的資料副存放區
         length = len(data)
-        divide_len = int(length / divide_size)   # 切分後，單一份的長度
+        divide_len = length // divide_size   # 切分後，單一份的長度
         remain_len = length - divide_size * divide_len
 
         # 依照型別，準備空間
@@ -235,5 +292,3 @@ class Sorting:
         # print("after:\n", arrays)
 
         return arrays, bucket
-
-
