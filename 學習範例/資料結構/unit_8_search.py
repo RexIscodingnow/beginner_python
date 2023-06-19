@@ -4,6 +4,7 @@ Python Data Structure && algorithm: Search (搜尋)
 '''
 
 import numpy as np
+import math
 
 
 class Search:
@@ -14,22 +15,40 @@ class Search:
         
         : rtype: bool
         
-        Sort: False
         time Complexity: O(n)
         '''
-        isFind = False
+        index = 0
+        isFind = True
 
         # 寫法 1
         for i in range(len(data)):
             if search == data[i]:
-                isFind = True
+                index = i
+                break
+
+            index = -1
 
         # 寫法 2，比較 pythonic
         # for compare in data:
-        #     if search == compare:
-        #         isFind = True
+        #     if search != compare:
+        #         index += 1
+        #         isFind = False
+        #     else:
+        #         break
+
+        # 寫法 3
+        # while data[index] != search:
+        #     if index == len(data) - 1:
+        #         isFind = False
+        #         break
+
+        #     index += 1
+
+        # for 寫法 2 ~ 3
+        # if isFind == False:
+        #     index = -1
         
-        return isFind
+        return index
 
 
     def binary_search(self, data, search):
@@ -45,6 +64,7 @@ class Search:
         '''
         left = 0
         right = len(data)
+        data = sorted(data)   # 以防萬一
 
         while left <= right:
             mid = int((left + right) / 2)   # 取中央索引值
@@ -70,10 +90,42 @@ class Search:
         '''
         pass
 
+    def jumps_search(self, data, search):
+        """
+        跳躍搜尋法
+                    -- 待搜尋資料要求，與 binary search 一樣要排序過
+
+        Time Complexity: O(n * (1/2))  ==> 屬於線性成長
+        """
+        length = len(data)
+
+        step = int(math.floor(math.sqrt(length)))   # 跳躍步數，設資料長做平方根
+        prev = 0    # 目標的所在區域
+
+        while data[ min(step, length) - 1 ] < search:
+            prev = step
+            step += int(math.floor(math.sqrt(length)))
+
+            # 目標不在資料裡
+            if prev > length:
+                return -1
+            
+        # 在目標區域進行線性搜尋
+        while data[prev] < search:
+            prev += 1
+
+            if prev == min(step, length):
+                return -1
+            
+        if data[prev] == search:
+            return prev
+        
+        return -1
+
 
 class HashTable:
     '''
-    雜湊表
+    雜湊表 (testing)
 
     key-value pair
     '''
@@ -189,5 +241,43 @@ class HashTable:
             index = self._hash_function(key)
 
 
+class HashMap:
+    """
+    雜湊映射 (testing)
 
+    Use built-in data structure dict() to implement Hash Map in Python
+    """
+    def __init__(self):
+        self.__hash_map = dict()
+
+
+    def put(self, key, value):
+        """
+        放入 Map
+
+        : param key: 鍵
+        : param value: 值
+        """
+        if self.get(key):
+            raise Exception("Key had existed")
+        
+        self.__hash_map[key] = value
+
+    def get(self, key):
+        """
+        取值
+        """
+        return self.__hash_map.get(key)
+
+    def remove(self, key):
+        """
+        刪除
+        """
+        val = self.get(key)
+
+        if val:
+            del self.__hash_map[key]
+
+    def print_map(self):
+        print(self.__hash_map)
 
