@@ -23,6 +23,15 @@
       已經實作過:
         暴力解法
         1. Sequential Search (循序/線性搜尋法)
+
         非暴力解法
         2. Binary Search (Recursion and Iterative)
         3. Jumps Search
+
+
+# 當前學習項目 2: 演算法
+
+## 目前學習章節進度
+
+  1. Divide and Conquer
+  2. Dynamic Programming (待續...)
