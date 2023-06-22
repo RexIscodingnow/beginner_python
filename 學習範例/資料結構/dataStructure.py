@@ -7,7 +7,7 @@ Python 資料結構: 執行區
     2. List (串列)        => unit_2_list.py
     3. Stack (堆疊)       => unit_3_stack.py
     4. Queue (佇列)       => unit_4_queue.py
-    5. Tree (樹狀結構)    => unit_6_tree.py
+    5. Tree (樹狀結構)    => unit_5_tree.py
     6. Graph (圖形結構)
     7. Sorting (排序)     => unit_7_sort.py     (後續: algorithm 學習)
     8. Search (搜尋)      => unit_8_search.py   (後續: algorithm 學習)
@@ -15,14 +15,16 @@ Python 資料結構: 執行區
 '''
 
 import numpy as np
+import random
 
 from time import *
 from unit_1_array import ArrayOperation, Row_Column
 from unit_2_list import Sequential_List, Linked_List
-from unit_3_stack import Stack, Stack_Example, Recursion_Example
+from unit_3_stack import Stack, Stack_Example, Recursion_Example, Stack_ByList
 from unit_4_queue import Queue, LineUp, Circular_Queue
+from unit_5_tree import BinarySearchTree
 from unit_7_sort import Sorting
-from unit_8_search import Search, HashTable
+from unit_8_search import Search, HashTable, HashMap
 
 
 
@@ -61,16 +63,19 @@ if __name__ == "__main__":
     # Linked List
     
     ls_node = Linked_List()
-    # ls_node.listNode_Example()
+    # # ls_node.listNode_Example()
 
-    for i in range(6):
-        ls_node.addBack(i+1)
+    # for i in range(6):
+    #     ls_node.addBack(i+1)
 
-    ls_node.printNode()
-    print("----------------------------")
-    ls_node.delete(6)
-    ls_node.insert(10, 4)
-    ls_node.printNode()
+    # for i in range(6, 10):
+    #     ls_node.addFront(i+1)
+
+    # ls_node.printNode()
+    # print("----------------------------")
+    # ls_node.delete(6)
+    # ls_node.insert(10, 4)
+    # ls_node.printNode()
 
 
     # ------------------------------------------------------------------
@@ -120,7 +125,20 @@ if __name__ == "__main__":
     # print(result)
 
     # famula = ""
-    
+
+    # stack_ls = Stack_ByList()
+
+    # arr = np.random.randint(0, 50, 10)
+    # print(arr)
+    # for data in arr:
+    #     stack_ls.push(data)
+
+    # print("list:")
+    # stack_ls.show_list()
+
+    # for _ in range(arr.shape[0]):
+    #     print(stack_ls.pop())
+
     
     # ------------------------------------------------------------------
     # ------------------------------------------------------------------
@@ -174,6 +192,28 @@ if __name__ == "__main__":
     #     i += 1
 
     ''' Tree '''
+    b_search_tree = BinarySearchTree()
+
+    node_data = [10, 8, 13, 7, 9, 6, 12, 15]
+    node_data = sorted(node_data)
+    node_data.reverse()
+    print(node_data)
+
+    for data in node_data:
+        b_search_tree.addNode(data)
+
+    print("pre-order (前序):")
+    b_search_tree.preOrder()
+
+    print("in-order (中序):")
+    b_search_tree.inOrder()
+
+    print("post-order (後序):")
+    b_search_tree.postOrder()
+
+    node = b_search_tree.searchNode(13)
+    print("------------")
+    print(node.data)
 
 
     ''' Sort '''
@@ -183,6 +223,8 @@ if __name__ == "__main__":
     # data = Row_Column(row=10, dtype=int).custom_array([
     #     12, 456, 12, 79, 4, 87, 15, 4845, 123, 45
     # ])
+    # data = [12, 456, 12, 79, 4, 87, 15, 4845, 123, 45]
+    # print("origin:\n", data)
 
     # bubble sort
     # sorting.bubble_sort(data)
@@ -190,27 +232,30 @@ if __name__ == "__main__":
     # selection sort
     # sorting.selection_sort(data)
 
+    # insertion sort
+    # sorting.insert_sort(data)
+
     # quick sort
     # sorting.quick_sort(data, 0, data.shape[0]-1)
 
-    # data = [12, 456, 12, 79, 4, 87, 15, 4845, 123, 45]
     # data = Row_Column(row=10, dtype=int).rand(6, True)
 
     # data = sorting.merge_sort(data)
 
-    # print("result:\n", data)
+    # print("sorted result:\n", data)
     
 
     ''' Search '''
-    # search = Search()
+    search = Search()
 
     # data = Row_Column(row=10, dtype=int)
     # data = data.custom_array([8, 2, 7, 4, 9, 5, 10, 6, 3, 1])
 
-    # result = search.sequential_search(data, 5)
+    # result = search.sequential_search(data, 12)
+    # result = search.jumps_search(data, 45)
 
     # result = search.binary_search(data, 15)
-    # print(result)
+    # print("search index:", result)
 
     hashing = HashTable(10)
 
@@ -230,6 +275,42 @@ if __name__ == "__main__":
 
     # result = hashing.get("rfewrewr")
     # print(result)
+
+    
+    hash_map = HashMap()
+
+    # store_keys = []
+
+    # keys = []
+    # c_int = 65
+
+    # for _ in range(26 * 2):
+    #     if c_int == 90:
+    #         c_int = 97
+    #         # continue
+    #     elif c_int == 123:
+    #         break
+    #     keys.append(chr(c_int))
+    #     c_int += 1
+
+    # for _ in range(5):
+    #     temp = ""
+    #     key = random.sample(keys, 5)
+
+    #     for i in range(5):
+    #         temp += key[i]
+        
+    #     store_keys.append(temp)
+    #     hash_map.put(temp, random.randint(1, 10))
+
+    # hash_map.put(store_keys[2], 88)
+    # hash_map.print_map()
+
+    # print(hash_map.get(store_keys[2]))
+
+    # hash_map.remove(store_keys[2])
+    # hash_map.print_map()
+
 
     pass
 
