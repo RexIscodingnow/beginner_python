@@ -12,7 +12,7 @@ ________________________________________________________
  找尋資料 |     索引值          |   查詢特定節點 (node)，
           |                    |   要從"頭節點" 開始走訪
 --------------------------------------------------------
- 宣告方式 | dtype name[length]; |   
+ 宣告方式 | dtype name[length]; |  node = ListNode(data, nextNode)
 --------------------------------------------------------
 
     |------|-----|      |------|-----|
@@ -65,7 +65,7 @@ class Sequential_List():
 
 class ListNode:
     '''
-    鏈結串列
+    鏈結串列: 節點
     '''
     def __init__(self, data=0, link=None):
         '''
@@ -78,10 +78,10 @@ class ListNode:
 
 class Linked_List():
     '''
-    鏈結串列
+    鏈結串列: 單向鏈結串列 (Singly Linked List)
 
     由一組 節點 (Node) 所組成的 "有序串列"，各 Node 除了 資料欄 之外，
-    另外有 大於等於 1 個
+    另外有 大於等於 1 個的指標欄，儲存指向下一個節點的資料
     '''
     def __init__(self):
         self.listNode = ListNode()  # (原)頭節點
@@ -220,6 +220,31 @@ class Linked_List():
             current = current.link
         
         return None
+    
+    def get_rootNode(self):
+        '''
+        取得頭節點
+        '''
+        if self.isEmpty():
+            return
+        
+        # 在建構子，已經建立一個節點
+        # 使用到本類的建構子，一起建立之節點
+        # 節點資料: 0
+        return self.listNode.link
+
+    def get_lastNode(self):
+        '''
+        取得最尾部的節點
+        ''' 
+        if self.isEmpty():
+            return
+        
+        current = self.listNode
+        while current.link:
+            current = current.link
+
+        return current
 
     def printNode(self):
         '''
@@ -228,7 +253,7 @@ class Linked_List():
         if self.listNode == None:
             return
 
-        current = self.listNode
+        current = self.listNode.link   # 
 
         while current:
             print(current.data, end=' ')
