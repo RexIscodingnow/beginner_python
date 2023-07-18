@@ -37,8 +37,8 @@ class Sorting:
         self.data = data
 
         for i in range(len(data)):
-            for j in range(len(data)):
-                if data[i] < data[j]:
+            for j in range(i+1, len(data)):
+                if data[i] > data[j]:
                     self.swap(i, j)
 
 
@@ -53,21 +53,16 @@ class Sorting:
         '''
         self.data = data
 
-        # 寫法 1
         for i in range(len(data)):
-            for j in range(i+1, len(data)):
-                if data[i] > data[j]:
-                    self.swap(i, j)
-    
-        # 寫法 2
-        # for i in range(len(data)):
-        #     min_index = i   # 設置最小值 (索引值)
-        #     for j in range(i, len(data)):
-        #         if data[j] < data[min_index]:
-        #             min_index = j
+            min_index = i   # 設置最小值 (索引值)
 
-        #     if min_index != i:
-        #         self.swap(i, min_index)
+            for j in range(i, len(data)):
+                if data[j] < data[min_index]:   # 從 (i + 1) ~ 最底部的範圍，找出最小值
+                    min_index = j
+
+            if min_index != i:
+                self.swap(i, min_index)
+
 
     def insert_sort(self, data):
         '''
@@ -78,9 +73,9 @@ class Sorting:
         '''
         for i in range(1, len(data)):
             insert_val = data[i]   # 待插入的數值
-            insert_index = i - 1       # 已排序部分的最後一個索引
+            insert_index = i - 1   # 已排序部分的最後一個索引
 
-            # 比 key 大的數值往後移動
+            # 比 insert_val 大的數值往後移動
             while insert_index >= 0 and insert_val < data[insert_index]:
                 data[insert_index+1] = data[insert_index]
                 # print(f"i: {i}", "data[j+1]:", data[j+1], " data[j]:", data[j])
@@ -90,7 +85,7 @@ class Sorting:
             # 把小的數值放到最前面
             data[insert_index+1] = insert_val
             
-            print(data)
+            # print(data)
 
     def radix_sort(self, data):
         """
@@ -101,18 +96,31 @@ class Sorting:
         if len(data) < 2:
             return
         
-        buckets = [0] * 10
-        max_digit = len(max(data))   # 取最大數的最大的位數
 
         """
-        1 ~ 10 ^ max_digit  遞增 10 倍
-        example: 最大為 3 位數 => 123
-                    1 ~ 10 ^ 3
-        
-        => 1 -> 10 -> 100
+        [170, 45, 75, 90, 802, 24, 2, 66]
+
+        buckets 代表每一位數的數值: 0 ~ 9
+
+        放入之位數: 個位數 ~ n 位數
+
+            0   1   2   3   4   5   6   7   8   9
+            [], [], [], [], [], [], [], [], [], []
         """
-        for digit in range(1, math.pow(10, max_digit), digit*10):   # digit 作為基數，從個位數開始排序
-            pass
+        buckets = [[] for _ in range(10)]
+        max_digit = len(str(max(data)))   # 取最大數的總位數
+
+        temp_digit = 1
+
+        for _ in range(1, max_digit):   # digit 作為基數，從個位數開始排序
+            divide = 10 ** temp_digit
+
+            for i in range(len(data)):
+                index = data[i] % divide
+                print(index)
+
+
+            temp_digit += 1
 
 
     def quick_sort(self, data, left, right):
