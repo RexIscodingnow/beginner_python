@@ -26,6 +26,7 @@ Python Data Structure: Stack (堆疊)
 '''
 
 import numpy as np
+from unit_2_list import Linked_List   # for Stack_ByList()
 
 
 class Stack:
@@ -98,6 +99,49 @@ class Stack:
             return True
         else:
             return False
+
+
+class Stack_ByList:
+    '''
+    Stack 的儲存資料的結構，以 Linked List 作為主體操作
+
+    本類別操作，使用 unit_2_list.py 的 Linked_List() 類別操作
+    '''
+    def __init__(self):
+        self.stack = Linked_List()
+
+    def push(self, data):
+        self.stack.addFront(data)   # add on root node
+        # self.stack.addBack(data)    # add on last node
+
+    def show_list(self):
+        # print(self.stack.get_headNode().data)
+        self.stack.printNode()
+
+    def pop(self):
+        if self.isEmpty():
+            return None
+
+        # for addFront()
+        tempNode = self.stack.get_rootNode()
+
+        # for addBack()
+        # tempNode = self.stack.get_lastNode()
+
+        data = tempNode.data
+        self.stack.delete(tempNode.data)
+        return data
+
+    def top(self):
+        if self.isEmpty():
+            return None
+
+        return self.stack.get_rootNode().data
+        # return self.stack.get_lastNode().data
+    
+    def isEmpty(self):
+        return self.stack.get_rootNode() == None
+        # return self.stack.get_lastNode() == None
 
 
 class Stack_Example:
@@ -316,25 +360,25 @@ class Recursion_Example():
         結果
         '''
         if mode == "recursion":
-            if n <= 2:    # 到 2 圈 還是 1
+            if n <= 3:    # 到 2 圈 還是 1
                 return 1
             
             else:
                 return self.fibonacci_sequence(n - 1) + self.fibonacci_sequence(n - 2)
 
         elif mode == "iterative":
-            fibonacci = np.zeros([n+1], int)
+            fibonacci = np.zeros([n], int)
             fibonacci[0] = 0
 
             if n > 0:
                 fibonacci[1] = 1
                 # print("[i] = [i-1] + [i-2]")
-                for i in range(2, n+1):
+                for i in range(2, n):
                     fibonacci[i] = fibonacci[i-1] + fibonacci[i-2]
 
             print("fibbonacci sequence:")
             print(fibonacci)
-            return fibonacci[n]
+            return fibonacci[n-1]
 
         elif mode == "loop":
             # 第一種
@@ -345,7 +389,7 @@ class Recursion_Example():
             # for _ in range(n):
             #     temp = accumulator
             #     print(f"{accumulator} + {init} = ", accumulator + init)
-            #     accumulator += init
+            #     accumulator += init``
 
             #     init = temp
 
@@ -355,7 +399,7 @@ class Recursion_Example():
             n1 = 0
             n2 = 1
 
-            for _ in range(n):
+            for _ in range(n-1):
                 '''
                 0+1 = 1
                 1-0 = 1
@@ -368,6 +412,8 @@ class Recursion_Example():
                 '''
                 n2 = n1 + n2
                 n1 = n2 - n1
+
+                print(n1, end=' ')
 
             return n1
         
