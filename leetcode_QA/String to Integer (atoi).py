@@ -110,6 +110,7 @@ class Solution(object):
 
             i += 1
 
+        print("number:", number)
 
         if (positive > 0 and negative > 0) or not number.isdigit():
             return 0
